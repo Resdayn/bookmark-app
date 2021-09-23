@@ -1,4 +1,6 @@
 <template>
+<!-- Created to remove code from App.vue and to be able to cleanly modify the <ul> outside of App.vue -->
+<!-- This receives the list of resources from App and generate the learning resources by sending the props there -->
     <ul>
         <learning-resource 
         v-for="resource in resources" :key="resource.id"
