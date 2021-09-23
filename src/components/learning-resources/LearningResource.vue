@@ -21,12 +21,10 @@ export default {
 
 <style scoped>
 li {
-  margin: 1rem auto;
-  padding: 0.3rem 1rem;
+  margin: auto;
   max-width: 40rem;
-  border-radius: 25px;
   color: #C5CAD8;
-  background-color: #3677A4;
+
 }
 
 header {

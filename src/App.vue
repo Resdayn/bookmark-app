@@ -44,6 +44,5 @@ html {
 
 body {
   margin: 0;
-  background-color: #024873;
 }
 </style>
