@@ -1,6 +1,6 @@
 <template>
     <base-card>
-        <form>
+        <form @submit.prevent="submitData">
             <div class="form-control">
                 <label for="title">Title</label>
                 <input id="title" name="title" type="text" ref="titleInput">    
@@ -22,10 +22,15 @@
 
 <script>
 export default ({
+  inject: ['addResource'],
   methods: {
-    submitData(){
+    submitData() {
+      const enteredTitle = this.$refs.titleInput.value;
+      const enteredDescription = this.$refs.descInput.value;
+      const enteredUrl = this.$refs.linkInput.value;
 
-    }
+      this.addResource(enteredTitle, enteredDescription, enteredUrl);
+    },
   }
 })
 </script>
