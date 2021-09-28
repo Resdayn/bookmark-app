@@ -46,14 +46,25 @@ export default ({
 
     provide() {
         return {
-            resources: this.storedResources
+            resources: this.storedResources,
+            addResource: this.addResource, // this will be used by AddResource.vue
         }
     },
 
     methods: {
         setSelectedTab(tab) {
             this.currentSelectedTab = tab
-        }
+        },
+        addResource(title, description, url) {
+            const newResource = {
+                id: new Date().toISOString(),
+                title: title,
+                description: description,
+                link: url,
+            };
+            this.storedResources.unshift(newResource);
+            this.currentSelectedTab = 'stored-resources';
+        },
     }
 })
 </script>
