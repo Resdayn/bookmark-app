@@ -3,10 +3,12 @@
 <!-- This receives the list of resources from App and generate the learning resources by sending the props there -->
     <ul>
         <learning-resource 
-        v-for="resource in resources" :key="resource.id"
-        :title="resource.title"
-        :description="resource.description"
-        :link="resource.link">
+            v-for="resource in resources" 
+            :key="resource.id"
+            :title="resource.title"
+            :description="resource.description"
+            :link="resource.link"
+        >
         </learning-resource>
     </ul>
 </template>
@@ -14,10 +16,11 @@
 <script>
 import LearningResource from "./LearningResource.vue"
 export default {
+    inject: ['resources'],
     components: {
         LearningResource
     },
-    inject: ['resources']
+    
 }
 </script>
 
