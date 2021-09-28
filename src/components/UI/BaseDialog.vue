@@ -1,5 +1,5 @@
 <template>
-    <div></div>
+    <div @click="$emit('close')"></div>
     <dialog open>
         <header>
             <slot name="header">
@@ -10,7 +10,10 @@
             <slot></slot>
         </section>
         <menu>
-            <slot name="actions"></slot>
+            <slot name="actions">
+                <!-- This is a fallback in case it is not specified -->
+                <base-button @click="$emit('close')">Close</base-button>
+            </slot>
         </menu>
     </dialog>
 </template>
@@ -23,7 +26,8 @@ export default ({
             required: false 
         // not required because this is for the default     slot. We may override this with custom html.
         }
-    }
+    },
+    emits: ['close']
 })
 </script>
 
