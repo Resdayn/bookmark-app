@@ -18,8 +18,11 @@
 <script>
 export default ({
     props: {
-        title: String,
-        required: false // not required because this is for the default     slot. We may override this with custom html.
+        title: {
+            type: String,
+            required: false 
+        // not required because this is for the default     slot. We may override this with custom html.
+        }
     }
 })
 </script>
