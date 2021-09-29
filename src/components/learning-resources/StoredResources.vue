@@ -3,7 +3,8 @@
 <!-- This receives the list of resources from App and generate the learning resources by sending the props there -->
     <ul>
         <learning-resource 
-            v-for="resource in resources" 
+            v-for="resource in resources"
+            :id="resource.id" 
             :key="resource.id"
             :title="resource.title"
             :description="resource.description"
