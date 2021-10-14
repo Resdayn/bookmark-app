@@ -68,23 +68,15 @@ export default ({
             .catch(error => console.log(error));
         },
 
-        // Not necessary with Firebase
-        // addResource(title, description, url) {
-        //     const newResource = {
-        //         id: new Date().toISOString(),
-        //         title: title,
-        //         description: description,
-        //         link: url,
-        //     };
-        //     this.storedResources.unshift(newResource);
-        //     this.currentSelectedTab = 'stored-resources';
-        // },
-        removeResource(resId) {
-            // For this one, we can't override the array with a filtered array as it would generate a new array which won't be detected by the provide-inject.
+        removeResource(resourceId) {
+            // Axios delete request to Firebase
+            axios.delete(`https://learning-resources-app-a2444-default-rtdb.asia-southeast1.firebasedatabase.app/learning-resources/${resourceId}.json`)
+            .then(response => console.log(response))
+            .catch(error => console.log(error.message));
+            const resIndex = this.storedResources.findIndex(res => res.id == resourceId);
+
+            // We can't override the array with a filtered array as it would generate a new array which won't be detected by the provide-inject.
             // Instead, we manipulate the original array by deleting the item with the appropriate index
-
-            const resIndex = this.storedResources.findIndex(res => res.id == resId);
-
             this.storedResources.splice(resIndex, 1);
 
         }
