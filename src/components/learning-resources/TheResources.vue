@@ -1,6 +1,9 @@
 <template>
     <base-card>
-        <base-button @click="setSelectedTab('stored-resources')" :mode="storedResourceButtonMode">Saved Resources</base-button>
+        <base-button 
+        @click="setSelectedTab('stored-resources'); fetchResources()"
+        :mode="storedResourceButtonMode"
+        >Saved Resources</base-button>
         <base-button @click="setSelectedTab('add-resource')" :mode="addResourceButtonMode">Add Resource</base-button>
     </base-card>
     <keep-alive>
@@ -11,6 +14,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import StoredResources from "./StoredResources.vue";
 import AddResource from "./AddResource.vue";
 export default ({
@@ -21,20 +25,7 @@ export default ({
     data() {
         return {
             currentSelectedTab: 'stored-resources',
-            storedResources: [
-                {
-                    id: 'official-guide',
-                    title: 'Official Guide',
-                    description: 'The official Vue.js documentation',
-                    link: 'https://vuejs.org'
-                },
-                {
-                    id: 'google',
-                    title: 'Google',
-                    description: 'The Google search',
-                    link: 'https://google.com'
-                },
-            ]
+            storedResources: []
         }
     },
 
@@ -51,7 +42,8 @@ export default ({
         return {
             resources: this.storedResources,
             addResource: this.addResource, // this will be used by AddResource.vue
-            removeResource: this.removeResource
+            removeResource: this.removeResource,
+            currentSelectedTab: this.currentSelectedTab // used by AddResource.vue
         }
     },
 
@@ -59,16 +51,34 @@ export default ({
         setSelectedTab(tab) {
             this.currentSelectedTab = tab
         },
-        addResource(title, description, url) {
-            const newResource = {
-                id: new Date().toISOString(),
-                title: title,
-                description: description,
-                link: url,
-            };
-            this.storedResources.unshift(newResource);
-            this.currentSelectedTab = 'stored-resources';
+        fetchResources() {
+            this.storedResources.splice(0, this.storedResources.length); // empties the array to avoid duplicating items everytime the button is pressed
+            axios.get('https://learning-resources-app-a2444-default-rtdb.asia-southeast1.firebasedatabase.app/learning-resources.json')
+            .then(response => {
+                console.log(`Server response code is ${response.status}`)
+                for (const resourceId in response.data) {
+                    this.storedResources.push({
+                        id: resourceId,
+                        title: response.data[resourceId].title,
+                        description: response.data[resourceId].description,
+                        link: response.data[resourceId].url
+                    });
+                    }
+                })
+            .catch(error => console.log(error));
         },
+
+        // Not necessary with Firebase
+        // addResource(title, description, url) {
+        //     const newResource = {
+        //         id: new Date().toISOString(),
+        //         title: title,
+        //         description: description,
+        //         link: url,
+        //     };
+        //     this.storedResources.unshift(newResource);
+        //     this.currentSelectedTab = 'stored-resources';
+        // },
         removeResource(resId) {
             // For this one, we can't override the array with a filtered array as it would generate a new array which won't be detected by the provide-inject.
             // Instead, we manipulate the original array by deleting the item with the appropriate index
