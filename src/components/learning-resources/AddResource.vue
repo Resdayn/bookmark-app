@@ -23,7 +23,8 @@
               <input id="link" name="link" type="url" ref="linkInput">    
           </div>
           <div>
-              <base-button type="submit">Add Resource</base-button>  
+              <base-button type="submit">Add Resource <loading-spinner v-if="isPostingToFirebase"></loading-spinner></base-button>
+              <p v-if="isPostingCompleted">Successfuly Uploaded!</p>  
           </div>
       </form>
   </base-card>
@@ -37,16 +38,21 @@ export default ({
   data() {
     return {
       inputIsInvalid: false,
+      isPostingToFirebase: false,
+      isPostingCompleted:false,
     }
   },
   methods: {
     submitData() {
+      this.isPostingToFirebase = true;
+      this.isPostingCompleted = false;
       const enteredTitle = this.$refs.titleInput.value;
       const enteredDescription = this.$refs.descInput.value;
       const enteredUrl = this.$refs.linkInput.value;
       // Form validation
       if (enteredTitle.trim() === '' || enteredDescription.trim() === '' || enteredUrl.trim() === '') {
         this.inputIsInvalid = true;
+        this.isPostingToFirebase = false;
         return;
       }
       // Axios POST to Firebase
@@ -61,6 +67,8 @@ export default ({
       }).catch(error => {
         console.log(error.message)
       })
+      this.isPostingToFirebase = false;
+      this.isPostingCompleted = true;
     },
     confirmError() {
       this.inputIsInvalid = false;
@@ -93,8 +101,14 @@ textarea:focus {
   border-color: #5394be;
   background-color: #779bb4;
 }
-
+form {
+  width: 100%;
+}
 .form-control {
   margin: 1rem 0;
+}
+
+p {
+  color: white
 }
 </style>
