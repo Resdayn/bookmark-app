@@ -3,11 +3,13 @@ import App from "./App.vue"
 import BaseCard from "./components/UI/BaseCard.vue"
 import BaseButton from "./components/UI/BaseButton.vue"
 import BaseDialog from "./components/UI/BaseDialog.vue"
+import LoadingSpinner from "./components/UI/LoadingSpinner.vue"
 
 const app = createApp(App);
 
 app.component('base-card', BaseCard);
 app.component('base-button', BaseButton);
 app.component('base-dialog', BaseDialog);
+app.component('loading-spinner', LoadingSpinner);
 
 app.mount('#app');
