@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default ({
   inject: ['addResource'],
   data() {
@@ -42,12 +44,23 @@ export default ({
       const enteredTitle = this.$refs.titleInput.value;
       const enteredDescription = this.$refs.descInput.value;
       const enteredUrl = this.$refs.linkInput.value;
-
+      // Form validation
       if (enteredTitle.trim() === '' || enteredDescription.trim() === '' || enteredUrl.trim() === '') {
         this.inputIsInvalid = true;
         return;
       }
-      this.addResource(enteredTitle, enteredDescription, enteredUrl);
+      // Axios POST to Firebase
+      axios({
+        method: 'post',
+        url: 'https://learning-resources-app-a2444-default-rtdb.asia-southeast1.firebasedatabase.app/learning-resources.json',
+        data: {
+          title: enteredTitle,
+          description: enteredDescription,
+          url: enteredUrl
+        }
+      }).catch(error => {
+        console.log(error.message)
+      })
     },
     confirmError() {
       this.inputIsInvalid = false;
