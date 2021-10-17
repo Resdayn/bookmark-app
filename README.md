@@ -1,6 +1,6 @@
 # Bookmark App
 ---
-![alt](./public/Bookmark-app.png)
+![alt](./public/img/Bookmark-app.png)
 
 * Created with Vue CLI
 * Connected to a Firebase backend
