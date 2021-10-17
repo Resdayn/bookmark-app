@@ -3,8 +3,8 @@
         <base-button 
         @click="setSelectedTab('stored-resources'); fetchResources()"
         :mode="storedResourceButtonMode"
-        ><img src="../../../public/icons/load.png"> Load Saved Resources <loading-spinner v-if="isLoadingFromFirebase"></loading-spinner></base-button>
-        <base-button @click="setSelectedTab('add-resource')" :mode="addResourceButtonMode"><img src="../../../public/icons/add.png"> Add Resource</base-button>
+        ><img src="../../../public/icons/load.png"> Load Saved Bookmarks <loading-spinner v-if="isLoadingFromFirebase"></loading-spinner></base-button>
+        <base-button @click="setSelectedTab('add-resource')" :mode="addResourceButtonMode"><img src="../../../public/icons/add.png"> Add Bookmark</base-button>
     </base-card>
     <keep-alive>
         <component :is="currentSelectedTab"></component>
