@@ -1,3 +1,9 @@
-# learning-resources
+# Bookmark App
+---
+![alt](./public/Bookmark-app.png)
 
-### Made with Vue. It can save and delete multiple links with title and description. Not persistent. Form validation included.
+* Created with Vue CLI
+* Connected to a Firebase backend
+* Can save bookmarks to the backend.
+* Can fetch bookmarks from the backend
+* Contains form validation
