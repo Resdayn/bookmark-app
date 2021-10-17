@@ -3,7 +3,7 @@
         <base-button 
         @click="setSelectedTab('stored-resources'); fetchResources()"
         :mode="storedResourceButtonMode"
-        >Saved Resources</base-button>
+        >Saved Resources <loading-spinner v-if="isLoadingFromFirebase"></loading-spinner></base-button>
         <base-button @click="setSelectedTab('add-resource')" :mode="addResourceButtonMode">Add Resource</base-button>
     </base-card>
     <keep-alive>
@@ -25,7 +25,8 @@ export default ({
     data() {
         return {
             currentSelectedTab: 'stored-resources',
-            storedResources: []
+            storedResources: [],
+            isLoadingFromFirebase: false
         }
     },
 
@@ -52,6 +53,7 @@ export default ({
             this.currentSelectedTab = tab
         },
         fetchResources() {
+            this.isLoadingFromFirebase = true;
             this.storedResources.splice(0, this.storedResources.length); // empties the array to avoid duplicating items everytime the button is pressed
             axios.get('https://learning-resources-app-a2444-default-rtdb.asia-southeast1.firebasedatabase.app/learning-resources.json')
             .then(response => {
@@ -64,6 +66,7 @@ export default ({
                         link: response.data[resourceId].url
                     });
                     }
+                    this.isLoadingFromFirebase = false
                 })
             .catch(error => console.log(error));
         },
