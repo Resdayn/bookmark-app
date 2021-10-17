@@ -3,8 +3,8 @@
         <base-button 
         @click="setSelectedTab('stored-resources'); fetchResources()"
         :mode="storedResourceButtonMode"
-        >Saved Resources <loading-spinner v-if="isLoadingFromFirebase"></loading-spinner></base-button>
-        <base-button @click="setSelectedTab('add-resource')" :mode="addResourceButtonMode">Add Resource</base-button>
+        ><img src="../../../public/icons/load.png"> Load Saved Resources <loading-spinner v-if="isLoadingFromFirebase"></loading-spinner></base-button>
+        <base-button @click="setSelectedTab('add-resource')" :mode="addResourceButtonMode"><img src="../../../public/icons/add.png"> Add Resource</base-button>
     </base-card>
     <keep-alive>
         <component :is="currentSelectedTab"></component>
@@ -42,9 +42,7 @@ export default ({
     provide() {
         return {
             resources: this.storedResources,
-            addResource: this.addResource, // this will be used by AddResource.vue
             removeResource: this.removeResource,
-            currentSelectedTab: this.currentSelectedTab // used by AddResource.vue
         }
     },
 
@@ -86,3 +84,11 @@ export default ({
     }
 })
 </script>
+
+<style scoped>
+img {
+    transform: scale(0.8);
+    position: relative;
+    top: 0.4rem;
+}
+</style>

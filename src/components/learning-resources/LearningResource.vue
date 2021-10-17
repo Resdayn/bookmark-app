@@ -7,7 +7,7 @@
           </header>
           <p>{{ description }}</p>
           <nav>
-              <a :href="link">View Resource</a>
+              <a :href="link"><img src="../../../public/icons/arrow-right.png"> Visit site</a>
           </nav>
       </base-card>
   </li>  
@@ -24,7 +24,7 @@ export default {
 li {
   margin: auto;
   max-width: 40rem;
-  color: #C5CAD8;
+  color: white;
 
 }
 
@@ -45,11 +45,18 @@ p {
 
 a {
   text-decoration: none;
-  color: #ce5c00;
+  color: white;
+  display: flex;
+  place-items: center;
 }
 
 a:hover,
 a:active {
-  color: #c89300;
+  color: #b8b19f;
+}
+
+img {
+  transform: scale(0.8);
+  margin-right: 0.2rem;
 }
 </style>
