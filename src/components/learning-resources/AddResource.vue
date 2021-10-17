@@ -34,7 +34,6 @@
 import axios from "axios";
 
 export default ({
-  inject: ['addResource'],
   data() {
     return {
       inputIsInvalid: false,
@@ -83,7 +82,7 @@ label {
   font-weight: bold;
   display: block;
   margin-bottom: 0.5rem;
-  color: #C5CAD8;
+  color: white;
 }
 
 input,
