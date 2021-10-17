@@ -1,5 +1,5 @@
 <template>
-    <the-header title="Learning Resource App"></the-header>
+    <the-header title="Bookmark App"></the-header>
     <the-resources></the-resources>
 </template>
 
