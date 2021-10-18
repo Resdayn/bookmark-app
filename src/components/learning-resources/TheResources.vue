@@ -26,7 +26,16 @@ export default ({
         return {
             currentSelectedTab: 'stored-resources',
             storedResources: [],
-            isLoadingFromFirebase: false
+            isLoadingFromFirebase: false,
+            defaultResources: [
+                {title: 'Google',
+                description: 'Google Search Engine',
+                link: 'https://google.com'},
+
+                {title: 'JavaScript.info',
+                description: 'The Modern JavaScript Tutorial',
+                link: 'https://javascript.info/'}
+            ]
         }
     },
 
@@ -72,15 +81,32 @@ export default ({
         removeResource(resourceId) {
             // Axios delete request to Firebase
             axios.delete(`https://learning-resources-app-a2444-default-rtdb.asia-southeast1.firebasedatabase.app/learning-resources/${resourceId}.json`)
-            .then(response => console.log(response))
+            .then(response => console.log(`Delete request: response: ${response.status}`))
             .catch(error => console.log(error.message));
             const resIndex = this.storedResources.findIndex(res => res.id == resourceId);
 
             // We can't override the array with a filtered array as it would generate a new array which won't be detected by the provide-inject.
             // Instead, we manipulate the original array by deleting the item with the appropriate index
             this.storedResources.splice(resIndex, 1);
+        },
 
+        refreshResources() {
+            console.log("Resources are being refreshed")
+            axios.delete('https://learning-resources-app-a2444-default-rtdb.asia-southeast1.firebasedatabase.app/learning-resources.json');
+            this.storedResources = this.storedResources.splice(0, this.storedResources.length);
+            
+            // for (this.resource of this.defaultResources){
+            //     axios({
+            //         method: 'post',
+            //         url: 'https://learning-resources-app-a2444-default-rtdb.asia-southeast1.firebasedatabase.app/learning-resources.json',
+            //         data: this.resource
+            //     }).catch(error => {console.log(error.message)})
+            // }
         }
+    },
+
+    mounted() {
+        setInterval(this.refreshResources, 60000);
     }
 })
 </script>
