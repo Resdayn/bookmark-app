@@ -17,6 +17,8 @@
 import axios from 'axios';
 import StoredResources from "./StoredResources.vue";
 import AddResource from "./AddResource.vue";
+import fireBaseToken from "../../../token.js"
+
 export default ({
     components: {
         StoredResources,
@@ -53,7 +55,7 @@ export default ({
         fetchResources() {
             this.isLoadingFromFirebase = true;
             this.storedResources.splice(0, this.storedResources.length); // empties the array to avoid duplicating items everytime the button is pressed
-            axios.get('https://learning-resources-app-a2444-default-rtdb.asia-southeast1.firebasedatabase.app/learning-resources.json')
+            axios.get(`${fireBaseToken.token}/learning-resources.json`)
             .then(response => {
                 console.log(`Server response code is ${response.status}`)
                 for (const resourceId in response.data) {
@@ -71,7 +73,7 @@ export default ({
 
         removeResource(resourceId) {
             // Axios delete request to Firebase
-            axios.delete(`https://learning-resources-app-a2444-default-rtdb.asia-southeast1.firebasedatabase.app/learning-resources/${resourceId}.json`)
+            axios.delete(`${fireBaseToken.token}/learning-resources.json/${resourceId}.json`)
             .then(response => console.log(response))
             .catch(error => console.log(error.message));
             const resIndex = this.storedResources.findIndex(res => res.id == resourceId);

@@ -32,6 +32,7 @@
 
 <script>
 import axios from "axios";
+import fireBaseToken from "../../../token.js"
 
 export default ({
   data() {
@@ -57,7 +58,7 @@ export default ({
       // Axios POST to Firebase
       axios({
         method: 'post',
-        url: 'https://learning-resources-app-a2444-default-rtdb.asia-southeast1.firebasedatabase.app/learning-resources.json',
+        url: `${fireBaseToken.token}/learning-resources.json`,
         data: {
           title: enteredTitle,
           description: enteredDescription,
